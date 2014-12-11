@@ -1,0 +1,154 @@
+
+.wrapper{
+  width: 420px;
+  margin: 0 auto;
+  height:500px;
+
+}
+.main, .sidebar{
+  float:left;
+}
+
+.sidebar{
+  width:20px;
+}
+
+.main{
+  background-color: #F290BE;
+  width: 400px;
+  height: 400px;
+}
+.create{
+  border:1px #6339F2 solid;
+}
+.edit{
+  top: 60%;
+  width: 250px;
+}
+.edit input{
+  display: inline-block;
+
+}
+.topbar{
+  height:20px;
+  width: 100%;
+  position: relative;
+  background-color:red;
+}
+.user{
+  margin-bottom: 5px;
+  background-color: yellow;
+  width: 20px;
+  font-size: 14px;
+  font-family: Helvetica;
+  display:inline-block;
+  position: relative;
+  overflow: hidden;
+}
+.user.revert{
+  height: 100px;
+  -webkit-transition: height 600ms ease;
+}
+.user p{
+
+  margin-left:120px;
+
+}
+.user input{
+  margin-top: 0px;
+  position: static;
+  margin-left: 110px;
+
+}
+.user form{
+  margin-top: 20px;
+}
+.delete{
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left:280px;
+  top: 80px;
+  background-color: red;
+  background-image: url('remove.png');
+  display: inline;
+}
+.expandbutton{
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  top:80px;
+  background-color: green;
+  background-image: url('remove.png');
+  display: inline;
+}
+.info{
+  width:90%;
+  height: 100%;
+  float: left;
+}
+.post{
+  display:inline-block;
+  width: 80%;
+  border: 1px black solid;
+  -webkit-box-sizing: border-box;
+
+}
+
+.tab{
+  width:10%;
+  height:100%;
+  float:left;
+}
+.editbutton{
+  position: absolute;
+  background-color: green;
+  height:20px;
+  width:20px;
+  left: 280px;
+
+}
+.newuserbutton{
+  height:18px;
+  width:18px;
+  background-color: blue;
+  position: absolute;
+  display: inline;
+}
+
+.newuser{
+  background-color: #68B8E2;
+  position: absolute;
+  top: 20px;
+  left: -160px;
+  width:160px;
+
+}
+.newuser input[type="text"]{
+  width:150px;
+}
+.addgif{
+  margin-left: 20px;
+}
+
+.user.active{
+  border:2px green solid;
+  background-color: #7BFF3B;
+  width: 300px;
+  -webkit-transition: width 600ms ease, background-color 2s;
+  -webkit-box-sizing: border-box;
+}
+.active.edit{
+  height:200px;
+  z-index: 1000;
+  -webkit-transition: height 600ms ease;
+
+}
+
+
+#vertical-text {
+  -webkit-transform: rotate(270deg);
+  margin-left: 0px;
+  margin-top: 20px;
+}
+

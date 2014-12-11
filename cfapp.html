@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+
+
+  <script src="bower_components/firebase/firebase.js"></script>
+  <script src="bower_components/angularfire/dist/angularfire.min.js"></script>
+
+
+  <script type="text/javascript" src="cfapp.js"></script>
+  <link rel="stylesheet" href="cfapp.css"></link>
+</head>
+<body ng-app="cfapp">
+
+
+  <div class="wrapper" ng-controller="UserController">
+    <div class="main"  ng-controller="GifController">
+      <div class="topbar">
+        <!-- new user window/form -->
+        <div class="newuserbutton" ng-click="newWindow()"></div>
+        <form class="create newuser" ng-show="newwindow">
+          <input type="text" placeholder="screenname" ng-model="screenname"></input>
+          <p></p>
+          <input type="text" placeholder="first" ng-model="first"></input>
+          <p></p>
+          <input type="text" placeholder="last" ng-model="last"></input>
+          <p></p>
+          <input type="text" placeholder="email" ng-model="email"></input>
+          <p></p>
+          <input type="button" value="add" ng-click="add(screenname,first, last, email)"></input>
+        </form>
+
+        <div>
+          <form class ="addgif">
+            <input type="text" ng-model="gif"></input>
+            <input type="button" value="add" ng-click="addGif(gif)"></input>
+            <input type="button" value="clear"></input>
+          </form>
+        </div>
+      </div><!--topbar-->
+      <div ng-repeat="gif in gifList" class="post">
+        <img src = "{{gif.source}}"/>
+      </div>
+    </div><!--main-->
+
+
+      <div class="sidebar">
+        <!-- User tab -->
+        <div class ="user revert" ng-repeat="(name, user) in users" ng-class = "{active: isActive(user), edit: isEditMode(user)}" ng-change:'checkList()'>
+
+          <!-- Expand tab should have vertical text -->
+          <div class="tab">
+            <p id="vertical-text">{{user.screenname}}</p>
+            <div class="expandbutton" ng-click="activate(user)"></div>
+          </div>
+
+          <!--Should contain user info-->
+          <div class="info" ng-show="isActive(user)">
+            <p ng-hide="updateMode == user" ng-click="setUpdateMode($event, user)">{{user.first}}<br/>{{user.last}}<br/>{{user.email}}</p>
+            <div class="delete" ng-click="delete(user)"></div>
+            <form>
+              <input type="text" ng-model="updates.first" ng-show="updateMode == user" placeholder="{{user.first}}" ng-keydown="setUpdateMode($event, user, updates)"></input>
+              <input type="text" ng-model="updates.last" ng-show="updateMode == user" placeholder="{{user.last}}" ng-keydown="setUpdateMode($event, user, updates)"></input>
+              <input type="text" ng-model="updates.email" ng-show="updateMode == user" placeholder="{{user.email}}" ng-keydown="setUpdateMode($event, user, updates)"></input>
+            </form>
+          </div>
+        </div><!--sidebar-->
+
+
+
+
+    </div><!--wrapper-->
+
+  </div>
+</body>
+</html>
