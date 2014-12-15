@@ -1,0 +1,22 @@
+{
+  "name": "giflr",
+  "version": "1.0.0",
+  "description": "codefellows app",
+  "main": "cfapp.js",
+  "scripts": {
+    "postinstall": "bower install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aaroncrows/Gifflr.git"
+  },
+  "author": "Aaron Krause",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aaroncrows/Gifflr/issues"
+  },
+  "homepage": "https://github.com/aaroncrows/Gifflr",
+  "dependencies": {
+    "bower": "^1.3.12"
+  }
+}
