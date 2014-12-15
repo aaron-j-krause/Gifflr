@@ -1,126 +1,126 @@
  var app = angular.module('cfapp', ['ngRoute', 'firebase']);
 
-//Timeline and Event add and remove functions. Timeline master Object
-app.service('UserService', function() {
-
-});
-
-app.controller('UserController', ['$scope', '$firebase', 'UserService', '$timeout', function($scope, $firebase, UserService, $timeout) {
+app.controller('UserController', ['$scope', '$firebase', function($scope, $firebase) {
   var usersRef = new Firebase('https://sizzling-heat-5879.firebaseio.com/cf/users');
+  var gifsRef = new Firebase('https://sizzling-heat-5879.firebaseio.com/cf/gifs');
 
+  $scope.gifList = $firebase(gifsRef).$asArray();
   $scope.users = $firebase(usersRef).$asObject();
+
   $scope.editMode = '';
   $scope.updateMode = false;
 
-
-  function checkList(){
-    if($scope.users.length == 1 || !($scope.active in $scope.users)){
-      $scope.active = $scope.users[0];
-    }
-  }
-
-  $scope.users.$loaded().then(function(){
-    //$scope.users.suckafish420 = {"screenname":"suckafish420","first":"blinky", "last":"fish", "email":"email"}
-    //$scope.users.$save();
-    $timeout(checkList, 100);
-  });
-
   //adds new user
-  $scope.add = function(screenname, first, last, email){
-    $scope.users[screenname] = {"screenname": screenname, "first":first, "last":last, "email":email};
-    $scope.users.$save();
-    $scope.screenname = '';
-    $scope.first = '';
-    $scope.last = '';
-    $scope.email = '';
-  }
+  $scope.add = function(screenname, first, last, email) {
+    if ($scope.newuser.$valid && !($scope.inusers(screenname))) {
+      $scope.users[screenname] = {"screenname": screenname, "first":first, "last":last, "email":email};
+      $scope.users.$save();
+      $scope.screenname = '';
+      $scope.first = '';
+      $scope.last = '';
+      $scope.email = '';
+      $scope.newuser.submitted = false;
+    } else {
+      $scope.newuser.submitted = true;
+    }
+  };
   //deletes user
-  $scope.delete = function(user){
-    delete $scope.users[user.screenname];
-    $scope.users.$save();
-  }
+  $scope.delete = function(user) {
+    if (confirm('Delete this user?')) {
+      delete $scope.users[user.screenname];
+      $scope.users.$save();
+    }
+  };
 
   //activates user
-  $scope.activate = function(user){
+  $scope.activate = function(user) {
     $scope.updateMode = false;
-    if($scope.active == user){
+    if ($scope.active == user) {
       $scope.active = '';
     } else {
       $scope.active = user;
-
     }
-  }
+  };
 
   //opens new user window
-  $scope.newWindow = function(){
-    if($scope.newwindow){
+  $scope.newWindow = function() {
+    if ($scope.newwindow) {
       $scope.newwindow = false;
     }
-    else{
+    else {
       $scope.newwindow = true;
     }
 
-  }
+  };
 
-  $scope.update = function(user, updates){
-    for(i in updates){
-      $scope.users[user.screenname][i] = updates[i];
-      updates[i] = '';
+  //updates user info
+  $scope.update = function(user, updates) {
+    for (var i in updates) {
+      if (updates[i]) {
+        $scope.users[user.screenname][i] = updates[i];
+        updates[i] = '';
+      }
     }
     $scope.users.$save();
     $scope.active = user;
-  }
-  $scope.isActive = function(user){
+  };
+
+  //expression that checks active state of given user
+  $scope.isActive = function(user) {
     return $scope.active == user;
-  }
+  };
 
 
 
   //activates update mode
-  $scope.setUpdateMode = function($event, user, updates){
+  $scope.setUpdateMode = function($event, user, updates) {
     //console.log(updates);
     //console.log($scope.users)
-    if($event.type == 'click'){
+    if ($event.type == 'click') {
       $scope.updateMode = user;
     }
-    else if($event.keyCode == 13){
+    else if ($event.keyCode == 13) {
       $scope.updateMode = false;
       $scope.update(user, updates);
     }
-  }
-
-
-
+  };
 
   //activates edit mode
-  $scope.setEditMode = function(user){
-    if(!$scope.editMode){
+  $scope.setEditMode = function(user) {
+    if (!$scope.editMode) {
       $scope.editMode = user;
     }
-    else{
+    else {
       $scope.editMode = '';
     }
-  }
-
-  $scope.isEditMode = function(user){
+  };
+  //checks if edit mode is active
+  $scope.isEditMode = function(user) {
     return $scope.editMode == user;
-  }
+  };
+  //adds new gif to main body
+  $scope.addGif = function(gif) {
+    if (gif && $scope.isGif(gif)) {
+      console.log(new Date());
+      $scope.gifList.$add({"source":gif, "postedBy":$scope.active.screenname, "postedOn": (new Date()).toDateString()});
+      $scope.source = '';
+      $scope.addgif.submitted = false;
+    }
+    else {
+      $scope.addgif.submitted = true;
+      $scope.source = '';
+    }
+  };
+  //verifies file is a gif
+  $scope.isGif = function(file) {
+    return file.slice(file.lastIndexOf('.'),file.length).toLowerCase() == '.gif';
+  };
+  //clears all gifs
+  $scope.clear = function() {
+    gifsRef.remove();
+  };
+  $scope.inusers = function(screenname) {
+    return (screenname in $scope.users);
+  };
 
 }]);
-
-
-
-app.controller('GifController', ['$scope', '$firebase', 'UserService', function($scope, $firebase, UserService) {
-    var gifsRef = new Firebase('https://sizzling-heat-5879.firebaseio.com/cf/gifs');
-    $scope.gifList = $firebase(gifsRef).$asArray();
-
-    $scope.addGif = function(gif){
-      $scope.gifList.$add(gif)
-      $scope.gif = '';
-    }
-
-
-
-}])
-
-

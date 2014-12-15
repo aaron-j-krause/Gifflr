@@ -1,8 +1,10 @@
-
+body{
+  background-color: #447799;
+}
 .wrapper{
-  width: 420px;
+  width: 445px;
   margin: 0 auto;
-  height:500px;
+  background-color: #44bbcc;
 
 }
 .main, .sidebar{
@@ -14,12 +16,9 @@
 }
 
 .main{
-  background-color: #F290BE;
-  width: 400px;
-  height: 400px;
+  width: 425px;
 }
 .create{
-  border:1px #6339F2 solid;
 }
 .edit{
   top: 60%;
@@ -29,38 +28,48 @@
   display: inline-block;
 
 }
-.topbar{
+header{
   height:20px;
   width: 100%;
   position: relative;
-  background-color:red;
+  background-color:#68B8E2;
 }
+
+
 .user{
   margin-bottom: 5px;
-  background-color: yellow;
+  background-color: #6699aa;
   width: 20px;
   font-size: 14px;
   font-family: Helvetica;
   display:inline-block;
   position: relative;
   overflow: hidden;
+  height:100px;
+  -webkit-transition: width 600ms ease, background-color 2s;
 }
-.user.revert{
-  height: 100px;
-  -webkit-transition: height 600ms ease;
+.user.active{
+  border:2px #0055bb solid;
+  background-color: #88dddd;
+  width: 300px;
+  -webkit-transition: width 600ms ease, background-color 2s;
+  -webkit-box-sizing: border-box;
 }
-.user p{
 
-  margin-left:120px;
-
-}
 .user input{
   margin-top: 0px;
   position: static;
   margin-left: 110px;
 
 }
-.user form{
+.stats{
+  margin-top:20px;
+  margin-left:100px;
+  line-height: 140%;
+  -webkit-box-sizing: border-box;
+
+}
+.update{
   margin-top: 20px;
 }
 .delete{
@@ -70,8 +79,22 @@
   left:280px;
   top: 80px;
   background-color: red;
-  background-image: url('remove.png');
+  background-image: url('icons/remove.png');
   display: inline;
+}
+.tab{
+  width:10%;
+  height:100%;
+  float:left;
+  position: absolute;
+}
+.info{
+  width:90%;
+  height: 100%;
+  float: left;
+}
+.stats:hover{
+  border: 1px blue dashed;
 }
 .expandbutton{
   position: absolute;
@@ -79,34 +102,33 @@
   width: 18px;
   top:80px;
   background-color: green;
-  background-image: url('remove.png');
+  background-image: url('icons/expand.png');
   display: inline;
-}
-.info{
-  width:90%;
-  height: 100%;
-  float: left;
 }
 .post{
   display:inline-block;
   width: 80%;
   border: 1px black solid;
   -webkit-box-sizing: border-box;
-
+  background-color: #aacccc;
+  height:225px;
+  width:200px;
+  margin: 0 0 10px 10px;
 }
 
-.tab{
-  width:10%;
-  height:100%;
-  float:left;
+.post .postinfo{
+  height: 50px;
 }
-.editbutton{
-  position: absolute;
-  background-color: green;
-  height:20px;
-  width:20px;
-  left: 280px;
-
+.image{
+  height:170px;
+  width:200px;
+}
+.image img{
+  max-height: 100%;
+  max-width: 100%;
+}
+.postinfo p{
+  margin-left: 10px
 }
 .newuserbutton{
   height:18px;
@@ -114,6 +136,7 @@
   background-color: blue;
   position: absolute;
   display: inline;
+  background-image: url('icons/plus.png')
 }
 
 .newuser{
@@ -122,22 +145,16 @@
   top: 20px;
   left: -160px;
   width:160px;
+  border:1px #6339F2 solid;
 
 }
-.newuser input[type="text"]{
+.newuser input[type="text"], .newuser input[type="email"]{
   width:150px;
 }
 .addgif{
   margin-left: 20px;
 }
 
-.user.active{
-  border:2px green solid;
-  background-color: #7BFF3B;
-  width: 300px;
-  -webkit-transition: width 600ms ease, background-color 2s;
-  -webkit-box-sizing: border-box;
-}
 .active.edit{
   height:200px;
   z-index: 1000;
@@ -148,7 +165,29 @@
 
 #vertical-text {
   -webkit-transform: rotate(270deg);
-  margin-left: 0px;
-  margin-top: 20px;
+  height: 100%;
+  text-align: center;
+  margin-left: -5px;
+  margin-top: 50px;
 }
+form.submitted .ng-invalid, .invalid{ 
+  border: 2px solid red;
+}
+form.submitted .ng-invalid-name{
 
+}
+span{
+  font-size: 10px;
+  font-family: Helvetica;
+}
+.gifformcontainer{
+  float:left;
+}
+.activewarn{
+  float:right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+footer{
+  clear:both;
+}
